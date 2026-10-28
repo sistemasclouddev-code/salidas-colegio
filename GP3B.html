@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salón 3B - Salidas</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-dark: #0a0c16;
+            --neon-gold: #ffd700;
+            --neon-gold-glow: rgba(255, 215, 0, 0.4);
+            --neon-cyan: #00f3ff;
+            --neon-green: #39ff14;
+            --glass-bg: rgba(18, 24, 43, 0.65);
+            --glass-border: rgba(255, 255, 255, 0.12);
+        }
+
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background: radial-gradient(circle at 50% 20%, #151d38 0%, var(--bg-dark) 80%);
+            color: #e0e6ed;
+            min-height: 100vh;
+            padding: 30px 15px;
+            overflow-x: hidden;
+        }
+
+        h1, h2 {
+            font-family: 'Orbitron', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: #ffffff;
+            text-shadow: 0 0 15px rgba(0, 243, 255, 0.6);
+        }
+
+        .subtitulo {
+            font-size: 1.3rem;
+            color: #8a99ad;
+            letter-spacing: 1.5px;
+            font-weight: 500;
+        }
+
+        #ultimo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: var(--neon-gold);
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 2px solid var(--neon-gold);
+            border-radius: 20px;
+            padding: 35px 20px;
+            margin: 25px auto 35px auto;
+            box-shadow: 0 0 30px var(--neon-gold-glow), inset 0 0 15px var(--neon-gold-glow);
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.7);
+            line-height: 1.2;
+            transition: all 0.3s ease;
+        }
+
+        #ultimo small {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.8rem;
+            color: #00f3ff;
+            display: block;
+            margin-top: 10px;
+            font-weight: 600;
+            text-shadow: 0 0 10px rgba(0, 243, 255, 0.5);
+        }
+
+        #lista {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+        }
+
+        #lista h2 {
+            font-size: 1.5rem;
+            color: #ffffff;
+            border-bottom: 1px solid var(--glass-border);
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+
+        .table-cyberpunk {
+            width: 100%;
+            margin-bottom: 0;
+            color: #e0e6ed;
+            vertical-align: middle;
+        }
+
+        .table-cyberpunk th {
+            font-family: 'Orbitron', sans-serif;
+            background: rgba(0, 243, 255, 0.1);
+            color: var(--neon-cyan);
+            padding: 15px;
+            border-bottom: 2px solid var(--neon-cyan);
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+        }
+
+        .table-cyberpunk td {
+            padding: 14px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            font-size: 1.2rem;
+            font-weight: 500;
+        }
+
+        .table-cyberpunk tbody tr:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+            box-shadow: inset 3px 0 0 var(--neon-cyan);
+        }
+
+        .hora-col { width: 30%; }
+        .nombre-col { width: 70%; }
+
+        .grupo-badge {
+            background-color: transparent;
+            color: var(--neon-green);
+            border: 1px solid var(--neon-green);
+            box-shadow: 0 0 10px rgba(57, 255, 20, 0.3);
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            font-family: 'Orbitron', sans-serif;
+            display: inline-block;
+            margin-left: 10px;
+        }
+
+        #audioActivador {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, #ff9900, #ff5500);
+            color: #ffffff;
+            padding: 14px 28px;
+            border-radius: 50px;
+            box-shadow: 0 0 20px rgba(255, 123, 0, 0.6);
+            cursor: pointer;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            font-size: 1rem;
+            z-index: 1000;
+            border: none;
+            transition: all 0.3s ease;
+        }
+
+        #audioActivador:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 0 30px rgba(255, 123, 0, 0.9);
+        }
+
+        .cargando {
+            text-align: center;
+            padding: 30px;
+            color: #8a99ad;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container text-center">
+        <h1 class="mt-3">
+            <i class="fa-solid fa-school text-info me-2"></i>Salón 3B
+        </h1>
+        <div class="subtitulo">
+            <i class="fa-solid fa-door-open me-1"></i> SALIDA DE ALUMNOS
+        </div>
+        
+        <div id="ultimo" class="col-12 col-md-10 col-lg-8">
+            Esperando salida...
+            <small></small>
+        </div>
+        
+        <div id="lista">
+            <h2>
+                <i class="fa-solid fa-list-check me-2 text-info"></i>Últimas 10 salidas
+            </h2>
+            <div class="table-responsive">
+                <table class="table table-cyberpunk align-middle text-center">
+                    <thead>
+                        <tr>
+                            <th class="hora-col"><i class="fa-regular fa-clock me-1"></i> Hora</th>
+                            <th class="nombre-col"><i class="fa-solid fa-user me-1"></i> Nombre del Alumno</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabla-lista">
+                        <tr><td colspan="2" class="cargando">Cargando datos...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <audio id="alerta" preload="auto">
+        <source src="https://www.dropbox.com/scl/fi/hyyvttivmkkro64ny9ml0/alerta7.mp3?rlkey=feq68lcnjak6hcdvl3228w9tw&st=efrl6rau&raw=1" type="audio/mpeg">
+        Tu navegador no soporta el elemento de audio.
+    </audio>
+
+    <button id="audioActivador">
+        <i class="fa-solid fa-volume-high me-2"></i>Habilitar alertas sonoras
+    </button>
+
+    <script>
+        const grupo = "3B";
+        const webAppUrl = "https://script.google.com/macros/s/AKfycbyxFu756QssmDL5wptbqTL_4hEscNNjCPYPZWLXiBzsJtJT7ykhW900euJ8eQoH_Km0KQ/exec";
+
+        let audioHabilitado = false;
+        const alertaSound = document.getElementById('alerta');
+        let ultimoNombreMostrado = "";
+
+        function reproducirAlerta() {
+            if (!audioHabilitado) return;
+            alertaSound.currentTime = 0;
+            alertaSound.play().catch(e => console.log('Error al reproducir:', e));
+        }
+
+        document.getElementById('audioActivador').addEventListener('click', function() {
+            alertaSound.play().then(() => {
+                audioHabilitado = true;
+                this.style.display = 'none';
+                console.log('Audio habilitado');
+            }).catch(e => {
+                alert('Haz clic en la página para habilitar el sonido');
+            });
+        });
+
+        function actualizar() {
+            if (window.scriptTag) {
+                document.head.removeChild(window.scriptTag);
+            }
+            window.scriptTag = document.createElement('script');
+            window.scriptTag.src = webAppUrl + "?grupo=" + encodeURIComponent(grupo) + "&callback=procesarDatos";
+            document.head.appendChild(window.scriptTag);
+        }
+
+        window.procesarDatos = function(data) {
+            console.log('Datos recibidos:', data);
+
+            if (data.error) {
+                document.getElementById('ultimo').innerHTML = `<span style="color:#ff4d4d;">Error: ${data.error}</span>`;
+                return;
+            }
+
+            const ultimoDiv = document.getElementById('ultimo');
+            if (data.ultimo) {
+                const ultimo = data.ultimo;
+                ultimoDiv.innerHTML = `
+                    ${ultimo.nombre}
+                    <small>${ultimo.grupoCompleto}</small>
+                `;
+
+                if (ultimo.nombre !== ultimoNombreMostrado) {
+                    reproducirAlerta();
+                    ultimoNombreMostrado = ultimo.nombre;
+                }
+            } else {
+                ultimoDiv.innerHTML = 'Sin registros aún <small></small>';
+            }
+
+            const tbody = document.getElementById('tabla-lista');
+            tbody.innerHTML = '';
+
+            if (data.lista && data.lista.length > 0) {
+                data.lista.forEach(reg => {
+                    const fecha = new Date(reg.timestamp);
+                    const hora = fecha.toLocaleTimeString();
+                    const fila = document.createElement('tr');
+                    fila.innerHTML = `
+                        <td>${hora}</td>
+                        <td>${reg.nombre}</td>
+                    `;
+                    tbody.appendChild(fila);
+                });
+            } else {
+                tbody.innerHTML = '<tr><td colspan="2" style="text-align:center; padding:30px;">No hay salidas registradas</td></tr>';
+            }
+        };
+
+        setInterval(actualizar, 500);
+        actualizar();
+    </script>
+</body>
+</html>

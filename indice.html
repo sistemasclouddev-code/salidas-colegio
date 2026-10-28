@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SISTEMA CENTRAL DE CONTROL - SALIDA DE ALUMNOS</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
+    <!-- Google Fonts: Orbitron & Rajdhani -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-dark: #070913;
+            --panel-bg: rgba(15, 22, 41, 0.75);
+            --glass-border: rgba(0, 243, 255, 0.25);
+            --neon-gold: #ffd700;
+            --neon-gold-glow: rgba(255, 215, 0, 0.4);
+            --neon-cyan: #00f3ff;
+            --neon-cyan-glow: rgba(0, 243, 255, 0.4);
+            --neon-green: #39ff14;
+            --neon-purple: #bd00ff;
+            --text-main: #e0e6ed;
+        }
+
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background: radial-gradient(circle at 50% 10%, #1a233d 0%, var(--bg-dark) 85%);
+            color: var(--text-main);
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        /* Ambient scanline overlay */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%);
+            background-size: 100% 4px;
+            z-index: 999;
+            pointer-events: none;
+            opacity: 0.4;
+        }
+
+        /* Typography Override */
+        h1, h2, h3, h4, .brand-font {
+            font-family: 'Orbitron', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* Header Navigation Glassmorphism */
+        .cyber-navbar {
+            background: rgba(10, 14, 28, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 2px solid var(--neon-cyan);
+            box-shadow: 0 4px 25px rgba(0, 243, 255, 0.25);
+            padding: 15px 0;
+        }
+
+        .system-title {
+            font-size: 1.6rem;
+            font-weight: 900;
+            color: #ffffff;
+            text-shadow: 0 0 12px var(--neon-cyan);
+            margin: 0;
+        }
+
+        .system-subtitle {
+            font-size: 0.85rem;
+            color: var(--neon-cyan);
+            letter-spacing: 3px;
+        }
+
+        /* Status Badge Header */
+        .live-badge {
+            background: rgba(59, 255, 20, 0.1);
+            border: 1px solid var(--neon-green);
+            color: var(--neon-green);
+            padding: 5px 14px;
+            border-radius: 20px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.75rem;
+            box-shadow: 0 0 10px rgba(57, 255, 20, 0.3);
+            animation: pulse-green 2s infinite;
+        }
+
+        @keyframes pulse-green {
+            0%, 100% { box-shadow: 0 0 5px rgba(57, 255, 20, 0.4); }
+            50% { box-shadow: 0 0 18px rgba(57, 255, 20, 0.9); }
+        }
+
+        /* Main Container */
+        .dashboard-container {
+            padding: 25px 15px;
+        }
+
+        /* Group Selector Card Buttons */
+        .class-card {
+            background: var(--panel-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 18px 20px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .class-card::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 4px; height: 100%;
+            background: var(--neon-cyan);
+            transition: all 0.3s ease;
+        }
+
+        .class-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--neon-cyan);
+            box-shadow: 0 0 20px var(--neon-cyan-glow);
+            background: rgba(22, 33, 62, 0.85);
+        }
+
+        .class-card.active {
+            background: rgba(0, 243, 255, 0.12);
+            border: 2px solid var(--neon-cyan);
+            box-shadow: 0 0 25px var(--neon-cyan-glow);
+        }
+
+        .class-card.active::before {
+            background: var(--neon-gold);
+            box-shadow: 0 0 10px var(--neon-gold);
+        }
+
+        .card-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .card-icon {
+            font-size: 1.8rem;
+            color: var(--neon-cyan);
+            text-shadow: 0 0 10px var(--neon-cyan-glow);
+        }
+
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: #ffffff;
+            margin: 0;
+            line-height: 1;
+        }
+
+        .card-desc {
+            font-size: 0.85rem;
+            color: #8a99ad;
+            margin-top: 4px;
+            margin-bottom: 0;
+        }
+
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--neon-green);
+            box-shadow: 0 0 8px var(--neon-green);
+        }
+
+        /* Iframe Display Screen */
+        .screen-container {
+            background: var(--panel-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+            position: relative;
+        }
+
+        .screen-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 12px;
+            margin-bottom: 15px;
+        }
+
+        .screen-title {
+            font-size: 1.2rem;
+            color: var(--neon-gold);
+            margin: 0;
+            text-shadow: 0 0 10px var(--neon-gold-glow);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .action-btn {
+            background: transparent;
+            border: 1px solid var(--neon-cyan);
+            color: var(--neon-cyan);
+            border-radius: 20px;
+            padding: 5px 15px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.8rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .action-btn:hover {
+            background: var(--neon-cyan);
+            color: #000;
+            box-shadow: 0 0 15px var(--neon-cyan-glow);
+        }
+
+        .iframe-viewport {
+            width: 100%;
+            height: 720px;
+            border: 1px solid rgba(0, 243, 255, 0.2);
+            border-radius: 12px;
+            background: #05070e;
+            box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.8);
+        }
+
+        /* Mode Selector / Quick Bar */
+        .quick-nav {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            padding-bottom: 8px;
+            margin-bottom: 20px;
+        }
+
+        .quick-nav::-webkit-scrollbar {
+            height: 4px;
+        }
+
+        .quick-nav::-webkit-scrollbar-thumb {
+            background: var(--neon-cyan);
+            border-radius: 4px;
+        }
+
+        .quick-btn {
+            background: rgba(18, 24, 43, 0.8);
+            border: 1px solid var(--glass-border);
+            color: var(--text-main);
+            padding: 8px 18px;
+            border-radius: 30px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.85rem;
+            white-space: nowrap;
+            transition: all 0.2s ease;
+        }
+
+        .quick-btn:hover, .quick-btn.active {
+            background: var(--neon-cyan);
+            color: #000;
+            border-color: var(--neon-cyan);
+            box-shadow: 0 0 12px var(--neon-cyan-glow);
+            font-weight: 700;
+        }
+
+        /* Clock Box */
+        .system-clock {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.1rem;
+            color: var(--neon-cyan);
+            text-shadow: 0 0 8px var(--neon-cyan-glow);
+        }
+
+        /* Responsive Tweaks */
+        @media (max-width: 991px) {
+            .iframe-viewport {
+                height: 550px;
+            }
+        }
+        @media (max-width: 576px) {
+            .system-title { font-size: 1.2rem; }
+            .iframe-viewport { height: 420px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header class="cyber-navbar sticky-top">
+        <div class="container-fluid px-4">
+            <div class="row align-items-center">
+                <div class="col-md-6 col-12 text-center text-md-start mb-2 mb-md-0">
+                    <h1 class="system-title">
+                        <i class="fa-solid fa-microchip me-2 text-info"></i>SISTEMA CENTRAL DE CONTROL
+                    </h1>
+                    <div class="system-subtitle">MONITOREO DE SALIDAS EN TIEMPO REAL</div>
+                </div>
+                <div class="col-md-6 col-12 d-flex justify-content-center justify-content-md-end align-items-center gap-3">
+                    <div class="live-badge">
+                        <i class="fa-solid fa-signal me-1"></i> EN LÍNEA
+                    </div>
+                    <div class="system-clock" id="relojSistema">
+                        00:00:00
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Grid -->
+    <main class="container-fluid dashboard-container">
+        <!-- Quick Selector Bar for Mobile/Tablet -->
+        <div class="quick-nav d-lg-none">
+            <button class="quick-btn active" onclick="seleccionarGrupo('1A', this)">G-1A</button>
+            <button class="quick-btn" onclick="seleccionarGrupo('1B', this)">G-1B</button>
+            <button class="quick-btn" onclick="seleccionarGrupo('2A', this)">G-2A</button>
+            <button class="quick-btn" onclick="seleccionarGrupo('2B', this)">G-2B</button>
+            <button class="quick-btn" onclick="seleccionarGrupo('3A', this)">G-3A</button>
+            <button class="quick-btn" onclick="seleccionarGrupo('3B', this)">G-3B</button>
+        </div>
+
+        <div class="row g-4">
+            <!-- Sidebar Menu Selectors (Desktop) -->
+            <div class="col-lg-3 d-none d-lg-block">
+                <div class="d-flex flex-column gap-3">
+                    <h4 class="text-white fs-6 mb-1 opacity-75">
+                        <i class="fa-solid fa-border-all me-2"></i>SELECCIONAR AULA
+                    </h4>
+
+                    <!-- Option 1A -->
+                    <div class="class-card active" id="card-1A" onclick="seleccionarGrupo('1A')">
+                        <div class="card-info">
+                            <i class="fa-solid fa-chalkboard-user card-icon"></i>
+                            <div>
+                                <h3 class="card-title">SALÓN 1A</h3>
+                                <p class="card-desc">Salidas Grupo 1A</p>
+                            </div>
+                        </div>
+                        <span class="status-dot"></span>
+                    </div>
+
+                    <!-- Option 1B -->
+                    <div class="class-card" id="card-1B" onclick="seleccionarGrupo('1B')">
+                        <div class="card-info">
+                            <i class="fa-solid fa-chalkboard-user card-icon"></i>
+                            <div>
+                                <h3 class="card-title">SALÓN 1B</h3>
+                                <p class="card-desc">Salidas Grupo 1B</p>
+                            </div>
+                        </div>
+                        <span class="status-dot"></span>
+                    </div>
+
+                    <!-- Option 2A -->
+                    <div class="class-card" id="card-2A" onclick="seleccionarGrupo('2A')">
+                        <div class="card-info">
+                            <i class="fa-solid fa-chalkboard-user card-icon"></i>
+                            <div>
+                                <h3 class="card-title">SALÓN 2A</h3>
+                                <p class="card-desc">Salidas Grupo 2A</p>
+                            </div>
+                        </div>
+                        <span class="status-dot"></span>
+                    </div>
+
+                    <!-- Option 2B -->
+                    <div class="class-card" id="card-2B" onclick="seleccionarGrupo('2B')">
+                        <div class="card-info">
+                            <i class="fa-solid fa-chalkboard-user card-icon"></i>
+                            <div>
+                                <h3 class="card-title">SALÓN 2B</h3>
+                                <p class="card-desc">Salidas Grupo 2B</p>
+                            </div>
+                        </div>
+                        <span class="status-dot"></span>
+                    </div>
+
+                    <!-- Option 3A -->
+                    <div class="class-card" id="card-3A" onclick="seleccionarGrupo('3A')">
+                        <div class="card-info">
+                            <i class="fa-solid fa-chalkboard-user card-icon"></i>
+                            <div>
+                                <h3 class="card-title">SALÓN 3A</h3>
+                                <p class="card-desc">Salidas Grupo 3A</p>
+                            </div>
+                        </div>
+                        <span class="status-dot"></span>
+                    </div>
+
+                    <!-- Option 3B -->
+                    <div class="class-card" id="card-3B" onclick="seleccionarGrupo('3B')">
+                        <div class="card-info">
+                            <i class="fa-solid fa-chalkboard-user card-icon"></i>
+                            <div>
+                                <h3 class="card-title">SALÓN 3B</h3>
+                                <p class="card-desc">Salidas Grupo 3B</p>
+                            </div>
+                        </div>
+                        <span class="status-dot"></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Viewport Screen (Iframe Container) -->
+            <div class="col-lg-9 col-12">
+                <div class="screen-container">
+                    <div class="screen-header">
+                        <h2 class="screen-title" id="visorTitulo">
+                            <i class="fa-solid fa-desktop"></i> MONITOREO SALÓN 1A
+                        </h2>
+                        <a href="Clase1A.html" target="_blank" id="btnAbrirExt" class="action-btn">
+                            <i class="fa-solid fa-up-right-from-square"></i> Abrir Pestaña Separada
+                        </a>
+                    </div>
+                    
+                    <!-- Display Frame -->
+                    <iframe id="visorPantalla" class="iframe-viewport" src="Clase1A.html" title="Pantalla de Salida"></iframe>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- JavaScript Interactions -->
+    <script>
+        // Mapeo de salones y archivos HTML asociados
+        const salones = {
+            '1A': { titulo: 'MONITOREO SALÓN 1A', url: 'Clase1A.html' },
+            '1B': { titulo: 'MONITOREO SALÓN 1B', url: 'Clase1B.html' },
+            '2A': { titulo: 'MONITOREO SALÓN 2A', url: 'Clase2A.html' },
+            '2B': { titulo: 'MONITOREO SALÓN 2B', url: 'Clase2B.html' },
+            '3A': { titulo: 'MONITOREO SALÓN 3A', url: 'Clase3A.html' },
+            '3B': { titulo: 'MONITOREO SALÓN 3B', url: 'Clase3B.html' }
+        };
+
+        let grupoActual = '1A';
+
+        function seleccionarGrupo(grupoKey, btnElem = null) {
+            if (!salones[grupoKey]) return;
+
+            grupoActual = grupoKey;
+            const target = salones[grupoKey];
+
+            // Actualiza iframe y visor
+            const iframe = document.getElementById('visorPantalla');
+            const titulo = document.getElementById('visorTitulo');
+            const btnExt = document.getElementById('btnAbrirExt');
+
+            iframe.src = target.url;
+            titulo.innerHTML = `<i class="fa-solid fa-desktop"></i> ${target.titulo}`;
+            btnExt.href = target.url;
+
+            // Actualiza estilos de tarjetas en el menú lateral
+            document.querySelectorAll('.class-card').forEach(card => {
+                card.classList.remove('active');
+            });
+            const activeCard = document.getElementById(`card-${grupoKey}`);
+            if (activeCard) activeCard.classList.add('active');
+
+            // Actualiza botones rápidos para móvil
+            document.querySelectorAll('.quick-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            if (btnElem) {
+                btnElem.classList.add('active');
+            }
+        }
+
+        // Reloj del sistema futurista
+        function actualizarReloj() {
+            const ahora = new Date();
+            const horas = String(ahora.getHours()).padStart(2, '0');
+            const minutos = String(ahora.getMinutes()).padStart(2, '0');
+            const segundos = String(ahora.getSeconds()).padStart(2, '0');
+            document.getElementById('relojSistema').innerText = `${horas}:${minutos}:${segundos}`;
+        }
+
+        setInterval(actualizarReloj, 1000);
+        actualizarReloj();
+    </script>
+</body>
+</html>
