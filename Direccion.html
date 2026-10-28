@@ -1,334 +1,311 @@
-<!--Vista General Dirección - Futuristic Dark Edition-->
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panel General - Dirección</title>
+    <title>Centro de Control - Sistema de Salidas</title>
     
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome Icons -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
     <!-- Google Fonts: Orbitron & Rajdhani -->
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <style>
         :root {
-            --bg-color: #080b10;
-            --card-bg: rgba(15, 23, 42, 0.75);
-            --neon-gold: #f39c12;
-            --neon-gold-glow: rgba(243, 156, 18, 0.4);
-            --neon-cyan: #00f2fe;
-            --neon-cyan-glow: rgba(0, 242, 254, 0.3);
-            --neon-green: #00ff88;
-            --border-glow: rgba(255, 255, 255, 0.1);
+            --bg-dark: #0a0c16;
+            --neon-gold: #ffd700;
+            --neon-cyan: #00f3ff;
+            --neon-green: #39ff14;
+            --glass-bg: rgba(18, 24, 43, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.12);
         }
 
         body {
             font-family: 'Rajdhani', sans-serif;
-            background-color: var(--bg-color);
-            background-image: 
-                radial-gradient(at 10% 10%, rgba(0, 242, 254, 0.08) 0px, transparent 50%),
-                radial-gradient(at 90% 90%, rgba(243, 156, 18, 0.08) 0px, transparent 50%);
-            background-attachment: fixed;
-            color: #e2e8f0;
+            background: radial-gradient(circle at 50% 20%, #151d38 0%, var(--bg-dark) 80%);
+            color: #e0e6ed;
             min-height: 100vh;
             padding: 30px 15px;
-            text-align: center;
+            overflow-x: hidden;
+        }
+
+        h1, h2, .card-title {
+            font-family: 'Orbitron', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }
 
         h1 {
-            font-family: 'Orbitron', sans-serif;
-            font-weight: 700;
+            font-size: 2.5rem;
+            font-weight: 800;
             color: #ffffff;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            text-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
-            margin-bottom: 25px;
-            font-size: 2.2rem;
+            text-shadow: 0 0 15px rgba(0, 243, 255, 0.6);
         }
 
-        #ultimo {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 2.8rem;
-            font-weight: 700;
-            margin: 20px auto 35px auto;
-            padding: 35px 25px;
-            max-width: 1100px;
-            background: var(--card-bg);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-radius: 20px;
-            border: 1px solid var(--border-glow);
-            border-left: 8px solid var(--neon-gold);
-            box-shadow: 0 0 30px var(--neon-gold-glow), inset 0 0 15px rgba(243, 156, 18, 0.1);
-            color: #ffffff;
-            line-height: 1.3;
-            transition: all 0.3s ease;
-        }
-
-        #ultimo small {
-            font-family: 'Rajdhani', sans-serif;
-            font-size: 1.8rem;
-            color: var(--neon-cyan);
-            display: block;
-            font-weight: 600;
-            margin-top: 10px;
-            text-shadow: 0 0 10px var(--neon-cyan-glow);
-        }
-
-        #lista {
-            max-width: 1100px;
-            margin: 0 auto;
-            background: var(--card-bg);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            padding: 30px;
-            border-radius: 20px;
-            border: 1px solid var(--border-glow);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-        }
-
-        h2 {
-            font-family: 'Orbitron', sans-serif;
-            color: #ffffff;
+        .subtitulo {
+            font-size: 1.2rem;
+            color: #8a99ad;
+            letter-spacing: 1.5px;
             font-weight: 500;
-            font-size: 1.5rem;
-            margin-top: 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            padding-bottom: 15px;
-            letter-spacing: 1px;
         }
 
-        table {
-            width: 100%;
-            border-collapse: separate;
-            border-spacing: 0 8px;
-            font-size: 1.15rem;
+        /* Tarjetas de Salones Cyberpunk */
+        .salon-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 25px;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+            position: relative;
+            overflow: hidden;
         }
 
-        th {
-            background: rgba(243, 156, 18, 0.15) !important;
-            color: var(--neon-gold) !important;
-            padding: 16px 12px;
+        .salon-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--neon-cyan);
+            box-shadow: 0 0 10px var(--neon-cyan);
+        }
+
+        .salon-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--neon-cyan);
+            box-shadow: 0 0 25px rgba(0, 243, 255, 0.3);
+        }
+
+        .card-title {
+            color: #ffffff;
+            font-size: 1.4rem;
             font-weight: 700;
+        }
+
+        /* Botones de Acceso */
+        .btn-cyber {
             font-family: 'Orbitron', sans-serif;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            background: transparent;
+            color: var(--neon-cyan);
+            border: 1px solid var(--neon-cyan);
+            padding: 10px 20px;
+            border-radius: 12px;
+            box-shadow: 0 0 10px rgba(0, 243, 255, 0.2);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-cyber:hover {
+            background: var(--neon-cyan);
+            color: var(--bg-dark);
+            box-shadow: 0 0 20px var(--neon-cyan);
+        }
+
+        /* Contenedor de Vista Previa (Iframe) */
+        #visor-container {
+            max-width: 1100px;
+            margin: 40px auto 0 auto;
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+            display: none; /* Se muestra al seleccionar monitoreo directo */
+        }
+
+        iframe {
+            width: 100%;
+            height: 600px;
             border: none;
-            font-size: 0.95rem;
+            border-radius: 12px;
+            background: #000;
         }
 
-        th:first-child { border-top-left-radius: 10px; border-bottom-left-radius: 10px; }
-        th:last-child { border-top-right-radius: 10px; border-bottom-right-radius: 10px; }
-
-        td {
-            padding: 14px 12px;
-            background: rgba(255, 255, 255, 0.03);
-            border: none;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            vertical-align: middle;
-        }
-
-        tr td:first-child { border-top-left-radius: 10px; border-bottom-left-radius: 10px; border-left: 1px solid rgba(255, 255, 255, 0.05); }
-        tr td:last-child { border-top-right-radius: 10px; border-bottom-right-radius: 10px; border-right: 1px solid rgba(255, 255, 255, 0.05); }
-
-        tr:hover td {
-            background: rgba(0, 242, 254, 0.08);
-            color: #fff;
-        }
-
-        .grupo-badge {
-            background: rgba(0, 255, 136, 0.15);
+        .badge-grupo {
+            background: rgba(57, 255, 20, 0.1);
             color: var(--neon-green);
             border: 1px solid var(--neon-green);
-            padding: 6px 16px;
-            border-radius: 20px;
-            font-weight: 700;
-            font-size: 0.95rem;
-            display: inline-block;
-            box-shadow: 0 0 10px rgba(0, 255, 136, 0.2);
-        }
-
-        #audioActivador {
-            position: fixed;
-            bottom: 25px;
-            right: 25px;
-            background: linear-gradient(135deg, var(--neon-gold), #d35400);
-            color: white;
-            padding: 14px 28px;
-            border-radius: 50px;
-            box-shadow: 0 0 20px var(--neon-gold-glow);
-            cursor: pointer;
-            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 10px;
             font-family: 'Orbitron', sans-serif;
-            font-size: 0.95rem;
-            z-index: 1000;
-            border: none;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        #audioActivador:hover {
-            transform: translateY(-3px) scale(1.03);
-            box-shadow: 0 0 30px rgba(243, 156, 18, 0.8);
-        }
-
-        .cargando {
-            text-align: center;
-            padding: 30px;
-            color: var(--neon-cyan);
-            font-style: italic;
-            font-family: 'Rajdhani', sans-serif;
-            font-size: 1.2rem;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            h1 { font-size: 1.6rem; }
-            #ultimo { font-size: 1.8rem; padding: 20px 15px; }
-            #ultimo small { font-size: 1.3rem; }
-            table { font-size: 0.95rem; }
-            th, td { padding: 10px 6px; }
+            font-size: 0.8rem;
         }
     </style>
 </head>
 <body>
 
-    <div class="container-fluid px-md-4">
-        <h1><i class="fa-solid fa-school me-2"></i> Panel General de Salidas - Dirección</h1>
-        
-        <div id="ultimo">
-            Esperando primera salida...
-            <small></small>
+    <div class="container text-center my-4">
+        <!-- Encabezado Principal -->
+        <h1 class="mb-2">
+            <i class="fa-solid fa-network-wired text-info me-2"></i>Centro de Control
+        </h1>
+        <div class="subtitulo mb-5">
+            <i class="fa-solid fa-school-flag me-1"></i> MONITOREO Y SALIDAS DE SALONES
         </div>
-        
-        <div id="lista">
-            <h2><i class="fa-solid fa-list-check me-2"></i> Últimas 20 salidas registradas</h2>
-            <div class="table-responsive">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Hora</th>
-                            <th>Nombre del Alumno</th>
-                            <th>Grupo</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tabla-lista">
-                        <tr><td colspan="3" class="cargando"><i class="fa-solid fa-circle-notch fa-spin me-2"></i> Cargando datos...</td></tr>
-                    </tbody>
-                </table>
+
+        <!-- Cuadrícula de Accesos Directos -->
+        <div class="row g-4 justify-content-center" id="menu-grid">
+            
+            <!-- Salón 1A -->
+            <div class="col-md-4 col-sm-6">
+                <div class="salon-card text-center">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <span class="card-title m-0"><i class="fa-solid fa-door-open text-info me-2"></i>Salón 1A</span>
+                        <span class="badge-grupo">1A</span>
+                    </div>
+                    <p class="text-muted small mb-4">Panel de control y registro activo de salidas.</p>
+                    <div class="d-flex justify-content-center gap-2">
+                        <a href="Clase1A.html" target="_blank" class="btn-cyber">
+                            <i class="fa-solid fa-external-link-alt me-1"></i> Abrir
+                        </a>
+                        <button onclick="cargarEnVisor('GP1A.html', 'Salón 1A')" class="btn-cyber" style="color: var(--neon-gold); border-color: var(--neon-gold); box-shadow: 0 0 10px rgba(255,215,0,0.2);">
+                            <i class="fa-solid fa-desktop me-1"></i> Ver aquí
+                        </button>
+                    </div>
+                </div>
             </div>
+
+            <!-- Salón 1B -->
+            <div class="col-md-4 col-sm-6">
+                <div class="salon-card text-center" style="border-left-color: #3bd997;">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <span class="card-title m-0"><i class="fa-solid fa-door-open text-info me-2"></i>Salón 1B</span>
+                        <span class="badge-grupo">1B</span>
+                    </div>
+                    <p class="text-muted small mb-4">Panel de control y registro activo de salidas.</p>
+                    <div class="d-flex justify-content-center gap-2">
+                        <a href="Clase1B.html" target="_blank" class="btn-cyber">
+                            <i class="fa-solid fa-external-link-alt me-1"></i> Abrir
+                        </a>
+                        <button onclick="cargarEnVisor('GP1B.html', 'Salón 1B')" class="btn-cyber" style="color: var(--neon-gold); border-color: var(--neon-gold); box-shadow: 0 0 10px rgba(255,215,0,0.2);">
+                            <i class="fa-solid fa-desktop me-1"></i> Ver aquí
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Salón 2A -->
+            <div class="col-md-4 col-sm-6">
+                <div class="salon-card text-center" style="border-left-color: #d13030;">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <span class="card-title m-0"><i class="fa-solid fa-door-open text-info me-2"></i>Salón 2A</span>
+                        <span class="badge-grupo">2A</span>
+                    </div>
+                    <p class="text-muted small mb-4">Panel de control y registro activo de salidas.</p>
+                    <div class="d-flex justify-content-center gap-2">
+                        <a href="Clase2A.html" target="_blank" class="btn-cyber">
+                            <i class="fa-solid fa-external-link-alt me-1"></i> Abrir
+                        </a>
+                        <button onclick="cargarEnVisor('GP2A.html', 'Salón 2A')" class="btn-cyber" style="color: var(--neon-gold); border-color: var(--neon-gold); box-shadow: 0 0 10px rgba(255,215,0,0.2);">
+                            <i class="fa-solid fa-desktop me-1"></i> Ver aquí
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Salón 2B -->
+            <div class="col-md-4 col-sm-6">
+                <div class="salon-card text-center" style="border-left-color: #e09812;">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <span class="card-title m-0"><i class="fa-solid fa-door-open text-info me-2"></i>Salón 2B</span>
+                        <span class="badge-grupo">2B</span>
+                    </div>
+                    <p class="text-muted small mb-4">Panel de control y registro activo de salidas.</p>
+                    <div class="d-flex justify-content-center gap-2">
+                        <a href="Clase2B.html" target="_blank" class="btn-cyber">
+                            <i class="fa-solid fa-external-link-alt me-1"></i> Abrir
+                        </a>
+                        <button onclick="cargarEnVisor('GP2B.html', 'Salón 2B')" class="btn-cyber" style="color: var(--neon-gold); border-color: var(--neon-gold); box-shadow: 0 0 10px rgba(255,215,0,0.2);">
+                            <i class="fa-solid fa-desktop me-1"></i> Ver aquí
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Salón 3A -->
+            <div class="col-md-4 col-sm-6">
+                <div class="salon-card text-center" style="border-left-color: #8904cc;">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <span class="card-title m-0"><i class="fa-solid fa-door-open text-info me-2"></i>Salón 3A</span>
+                        <span class="badge-grupo">3A</span>
+                    </div>
+                    <p class="text-muted small mb-4">Panel de control y registro activo de salidas.</p>
+                    <div class="d-flex justify-content-center gap-2">
+                        <a href="Clase3A.html" target="_blank" class="btn-cyber">
+                            <i class="fa-solid fa-external-link-alt me-1"></i> Abrir
+                        </a>
+                        <button onclick="cargarEnVisor('GP3A.html', 'Salón 3A')" class="btn-cyber" style="color: var(--neon-gold); border-color: var(--neon-gold); box-shadow: 0 0 10px rgba(255,215,0,0.2);">
+                            <i class="fa-solid fa-desktop me-1"></i> Ver aquí
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Salón 3B -->
+            <div class="col-md-4 col-sm-6">
+                <div class="salon-card text-center" style="border-left-color: #cc049d;">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <span class="card-title m-0"><i class="fa-solid fa-door-open text-info me-2"></i>Salón 3B</span>
+                        <span class="badge-grupo">3B</span>
+                    </div>
+                    <p class="text-muted small mb-4">Panel de control y registro activo de salidas.</p>
+                    <div class="d-flex justify-content-center gap-2">
+                        <a href="Clase3B.html" target="_blank" class="btn-cyber">
+                            <i class="fa-solid fa-external-link-alt me-1"></i> Abrir
+                        </a>
+                        <button onclick="cargarEnVisor('GP3B.html', 'Salón 3B')" class="btn-cyber" style="color: var(--neon-gold); border-color: var(--neon-gold); box-shadow: 0 0 10px rgba(255,215,0,0.2);">
+                            <i class="fa-solid fa-desktop me-1"></i> Ver aquí
+                        </button>
+                    </div>
+                </div>
+            </div>
+
         </div>
+
+        <!-- Visor Integrado (Se activa al dar clic en "Ver aquí") -->
+        <div id="visor-container">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h3 id="visor-titulo" class="text-info m-0 fs-5 font-monospace">Monitoreo</h3>
+                <button onclick="cerrarVisor()" class="btn btn-sm btn-outline-danger font-monospace">
+                    <i class="fa-solid fa-xmark me-1"></i> Cerrar Vista
+                </button>
+            </div>
+            <iframe id="salon-frame" src=""></iframe>
+        </div>
+
     </div>
 
-    <!-- Audio desde Google Drive (URL directa de vista) -->
-    <audio id="alerta" preload="auto">
-        <source src="https://www.dropbox.com/scl/fi/1lcmf5993cq1op4tcgpuc/alerta1.mp3?rlkey=oao3zb2q1z6xp5v0jo7w24c1r&st=7xo67ep3&raw=1" type="audio/mpeg">
-        Tu navegador no soporta el elemento de audio.
-    </audio>
-
-    <!-- Botón flotante para habilitar audio -->
-    <button id="audioActivador">
-        <i class="fa-solid fa-volume-high me-2"></i> Habilitar alertas sonoras
-    </button>
-
     <script>
-        // ---------- CONFIGURACIÓN ----------
-        const grupo = "todos";  // NO CAMBIAR: así obtenemos todos los grupos
-        const webAppUrl = "https://script.google.com/macros/s/AKfycbyxFu756QssmDL5wptbqTL_4hEscNNjCPYPZWLXiBzsJtJT7ykhW900euJ8eQoH_Km0KQ/exec";  // <--- REEMPLAZA con tu URL real (termina en /exec)
-        // ------------------------------------
+        function cargarEnVisor(pagina, nombreSalon) {
+            const visor = document.getElementById('visor-container');
+            const frame = document.getElementById('salon-frame');
+            const titulo = document.getElementById('visor-titulo');
 
-        let audioHabilitado = false;
-        const alertaSound = document.getElementById('alerta');
-        let ultimoRegistroId = "";  // Para detectar nuevos registros
+            titulo.innerHTML = `<i class="fa-solid fa-desktop me-2"></i>Monitoreando en vivo: ${nombreSalon}`;
+            frame.src = pagina;
+            visor.style.display = 'block';
 
-        // Función para reproducir alerta solo si está habilitado
-        function reproducirAlerta() {
-            if (!audioHabilitado) return;
-            alertaSound.currentTime = 0;  // Reinicia por si ya estaba sonando
-            alertaSound.play().catch(e => console.log('Error al reproducir (posible bloqueo):', e));
+            // Desplazar la pantalla suavemente hacia el visor
+            visor.scrollIntoView({ behavior: 'smooth' });
         }
 
-        // Evento para habilitar el audio con un clic del usuario
-        document.getElementById('audioActivador').addEventListener('click', function() {
-            alertaSound.play().then(() => {
-                audioHabilitado = true;
-                this.style.display = 'none';  // Ocultar botón
-                console.log('Audio habilitado correctamente');
-            }).catch(e => {
-                alert('Por favor, interactúa con la página (haz clic en cualquier lugar) para habilitar el sonido.');
-            });
-        });
-
-        // Función para cargar datos usando JSONP (evita CORS)
-        function actualizar() {
-            // Eliminar script anterior si existe
-            if (window.scriptTag) {
-                document.head.removeChild(window.scriptTag);
-            }
-            // Crear nueva etiqueta script
-            window.scriptTag = document.createElement('script');
-            window.scriptTag.src = webAppUrl + "?grupo=" + encodeURIComponent(grupo) + "&callback=procesarDatos";
-            document.head.appendChild(window.scriptTag);
+        function cerrarVisor() {
+            const visor = document.getElementById('visor-container');
+            const frame = document.getElementById('salon-frame');
+            
+            frame.src = '';
+            visor.style.display = 'none';
         }
-
-        // Función global que llama el JSONP
-        window.procesarDatos = function(data) {
-            console.log('Datos recibidos (dirección):', data);
-
-            if (data.error) {
-                document.getElementById('ultimo').innerHTML = `<span style="color:#ff4757;">Error: ${data.error}</span>`;
-                return;
-            }
-
-            // Mostrar el último alumno (si existe)
-            const ultimoDiv = document.getElementById('ultimo');
-            if (data.ultimo) {
-                const ultimo = data.ultimo;
-                ultimoDiv.innerHTML = `
-                    ${ultimo.nombre}
-                    <small>Grupo ${ultimo.grupoCompleto}</small>
-                `;
-
-                // Detectar si es un registro nuevo (comparando timestamp + nombre)
-                const nuevoId = ultimo.timestamp + ultimo.nombre;
-                if (nuevoId !== ultimoRegistroId) {
-                    reproducirAlerta();
-                    ultimoRegistroId = nuevoId;
-                }
-            } else {
-                ultimoDiv.innerHTML = 'Sin registros aún <small></small>';
-            }
-
-            // Mostrar la tabla con los últimos 20 registros
-            const tbody = document.getElementById('tabla-lista');
-            tbody.innerHTML = '';
-
-            if (data.lista && data.lista.length > 0) {
-                data.lista.forEach(reg => {
-                    // Formatear hora (timestamp viene como string desde Sheets)
-                    const fecha = new Date(reg.timestamp);
-                    const hora = fecha.toLocaleTimeString();
-                    const fila = document.createElement('tr');
-                    fila.innerHTML = `
-                        <td>${hora}</td>
-                        <td>${reg.nombre}</td>
-                        <td><span class="grupo-badge">${reg.grupoCompleto}</span></td>
-                    `;
-                    tbody.appendChild(fila);
-                });
-            } else {
-                tbody.innerHTML = '<tr><td colspan="3" style="text-align:center; padding:30px; color:#a4b0be;">No hay salidas registradas</td></tr>';
-            }
-        };
-
-        // Actualizar cada 3 segundos (puedes ajustar si quieres)
-        setInterval(actualizar, 500);
-        actualizar();  // Primera carga inmediata
     </script>
 </body>
 </html>
