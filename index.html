@@ -120,7 +120,7 @@
             border-radius: 20px;
             padding: 20px;
             box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
-            display: none; /* Se muestra al seleccionar monitoreo directo */
+            display: none;
         }
 
         iframe {
@@ -156,6 +156,25 @@
         <!-- Cuadrícula de Accesos Directos -->
         <div class="row g-4 justify-content-center" id="menu-grid">
             
+            <!-- Vista General - Dirección -->
+            <div class="col-12">
+                <div class="salon-card text-center mb-2" style="border-left-color: var(--neon-gold);">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <span class="card-title m-0" style="color: var(--neon-gold);"><i class="fa-solid fa-user-shield me-2"></i>Panel General - Dirección</span>
+                        <span class="badge-grupo" style="color: var(--neon-gold); border-color: var(--neon-gold); background: rgba(255,215,0,0.1);">TODOS</span>
+                    </div>
+                    <p class="text-muted small mb-3">Monitoreo global en tiempo real de todas las salidas registradas.</p>
+                    <div class="d-flex justify-content-center gap-2">
+                        <a href="Direccion.html" target="_blank" class="btn-cyber" style="color: var(--neon-gold); border-color: var(--neon-gold);">
+                            <i class="fa-solid fa-external-link-alt me-1"></i> Abrir Dirección
+                        </a>
+                        <button onclick="cargarEnVisor('Direccion.html', 'Panel General de Dirección')" class="btn-cyber" style="color: var(--neon-gold); border-color: var(--neon-gold); box-shadow: 0 0 10px rgba(255,215,0,0.2);">
+                            <i class="fa-solid fa-desktop me-1"></i> Ver aquí
+                        </button>
+                    </div>
+                </div>
+            </div>
+
             <!-- Salón 1A -->
             <div class="col-md-4 col-sm-6">
                 <div class="salon-card text-center">
@@ -165,10 +184,10 @@
                     </div>
                     <p class="text-muted small mb-4">Panel de control y registro activo de salidas.</p>
                     <div class="d-flex justify-content-center gap-2">
-                        <a href="Clase1A.html" target="_blank" class="btn-cyber">
+                        <a href="GP1A.html" target="_blank" class="btn-cyber">
                             <i class="fa-solid fa-external-link-alt me-1"></i> Abrir
                         </a>
-                        <button onclick="cargarEnVisor('Clase1A.html', 'Salón 1A')" class="btn-cyber" style="color: var(--neon-gold); border-color: var(--neon-gold); box-shadow: 0 0 10px rgba(255,215,0,0.2);">
+                        <button onclick="cargarEnVisor('GP1A.html', 'Salón 1A')" class="btn-cyber" style="color: var(--neon-gold); border-color: var(--neon-gold); box-shadow: 0 0 10px rgba(255,215,0,0.2);">
                             <i class="fa-solid fa-desktop me-1"></i> Ver aquí
                         </button>
                     </div>
@@ -184,10 +203,10 @@
                     </div>
                     <p class="text-muted small mb-4">Panel de control y registro activo de salidas.</p>
                     <div class="d-flex justify-content-center gap-2">
-                        <a href="Clase1B.html" target="_blank" class="btn-cyber">
+                        <a href="GP1B.html" target="_blank" class="btn-cyber">
                             <i class="fa-solid fa-external-link-alt me-1"></i> Abrir
                         </a>
-                        <button onclick="cargarEnVisor('Clase1B.html', 'Salón 1B')" class="btn-cyber" style="color: var(--neon-gold); border-color: var(--neon-gold); box-shadow: 0 0 10px rgba(255,215,0,0.2);">
+                        <button onclick="cargarEnVisor('GP1B.html', 'Salón 1B')" class="btn-cyber" style="color: var(--neon-gold); border-color: var(--neon-gold); box-shadow: 0 0 10px rgba(255,215,0,0.2);">
                             <i class="fa-solid fa-desktop me-1"></i> Ver aquí
                         </button>
                     </div>
@@ -203,10 +222,10 @@
                     </div>
                     <p class="text-muted small mb-4">Panel de control y registro activo de salidas.</p>
                     <div class="d-flex justify-content-center gap-2">
-                        <a href="Clase2A.html" target="_blank" class="btn-cyber">
+                        <a href="GP2A.html" target="_blank" class="btn-cyber">
                             <i class="fa-solid fa-external-link-alt me-1"></i> Abrir
                         </a>
-                        <button onclick="cargarEnVisor('Clase2A.html', 'Salón 2A')" class="btn-cyber" style="color: var(--neon-gold); border-color: var(--neon-gold); box-shadow: 0 0 10px rgba(255,215,0,0.2);">
+                        <button onclick="cargarEnVisor('GP2A.html', 'Salón 2A')" class="btn-cyber" style="color: var(--neon-gold); border-color: var(--neon-gold); box-shadow: 0 0 10px rgba(255,215,0,0.2);">
                             <i class="fa-solid fa-desktop me-1"></i> Ver aquí
                         </button>
                     </div>
@@ -222,10 +241,10 @@
                     </div>
                     <p class="text-muted small mb-4">Panel de control y registro activo de salidas.</p>
                     <div class="d-flex justify-content-center gap-2">
-                        <a href="Clase2B.html" target="_blank" class="btn-cyber">
+                        <a href="GP2B.html" target="_blank" class="btn-cyber">
                             <i class="fa-solid fa-external-link-alt me-1"></i> Abrir
                         </a>
-                        <button onclick="cargarEnVisor('Clase2B.html', 'Salón 2B')" class="btn-cyber" style="color: var(--neon-gold); border-color: var(--neon-gold); box-shadow: 0 0 10px rgba(255,215,0,0.2);">
+                        <button onclick="cargarEnVisor('GP2B.html', 'Salón 2B')" class="btn-cyber" style="color: var(--neon-gold); border-color: var(--neon-gold); box-shadow: 0 0 10px rgba(255,215,0,0.2);">
                             <i class="fa-solid fa-desktop me-1"></i> Ver aquí
                         </button>
                     </div>
@@ -241,10 +260,10 @@
                     </div>
                     <p class="text-muted small mb-4">Panel de control y registro activo de salidas.</p>
                     <div class="d-flex justify-content-center gap-2">
-                        <a href="Clase3A.html" target="_blank" class="btn-cyber">
+                        <a href="GP3A.html" target="_blank" class="btn-cyber">
                             <i class="fa-solid fa-external-link-alt me-1"></i> Abrir
                         </a>
-                        <button onclick="cargarEnVisor('Clase3A.html', 'Salón 3A')" class="btn-cyber" style="color: var(--neon-gold); border-color: var(--neon-gold); box-shadow: 0 0 10px rgba(255,215,0,0.2);">
+                        <button onclick="cargarEnVisor('GP3A.html', 'Salón 3A')" class="btn-cyber" style="color: var(--neon-gold); border-color: var(--neon-gold); box-shadow: 0 0 10px rgba(255,215,0,0.2);">
                             <i class="fa-solid fa-desktop me-1"></i> Ver aquí
                         </button>
                     </div>
@@ -260,10 +279,10 @@
                     </div>
                     <p class="text-muted small mb-4">Panel de control y registro activo de salidas.</p>
                     <div class="d-flex justify-content-center gap-2">
-                        <a href="Clase3B.html" target="_blank" class="btn-cyber">
+                        <a href="GP3B.html" target="_blank" class="btn-cyber">
                             <i class="fa-solid fa-external-link-alt me-1"></i> Abrir
                         </a>
-                        <button onclick="cargarEnVisor('Clase3B.html', 'Salón 3B')" class="btn-cyber" style="color: var(--neon-gold); border-color: var(--neon-gold); box-shadow: 0 0 10px rgba(255,215,0,0.2);">
+                        <button onclick="cargarEnVisor('GP3B.html', 'Salón 3B')" class="btn-cyber" style="color: var(--neon-gold); border-color: var(--neon-gold); box-shadow: 0 0 10px rgba(255,215,0,0.2);">
                             <i class="fa-solid fa-desktop me-1"></i> Ver aquí
                         </button>
                     </div>
@@ -295,7 +314,6 @@
             frame.src = pagina;
             visor.style.display = 'block';
 
-            // Desplazar la pantalla suavemente hacia el visor
             visor.scrollIntoView({ behavior: 'smooth' });
         }
 
